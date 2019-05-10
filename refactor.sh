@@ -133,7 +133,7 @@ function parse_arguments {
 	done
 }
 
-parse_arguments $@ 
+parse_arguments "$@"
 directory="$(readlink -f "$directory")"
 
 function check_setting {
@@ -201,7 +201,7 @@ function remove_backup {
 
 function make_replacements {
 	#TODO rather provide while s///g from program arguments to be more generic
-	sed s/$pattern/$replacement/g "$originalFile" > "$refactoredFile"
+	sed "s/${pattern}/${replacement}/g" "$originalFile" > "$refactoredFile"
 	test -z "$(diff_changes)" && cleanup_changes > /dev/null || echo "REPLACE: $originalFile"
 }
 
